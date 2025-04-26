@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            background-image: url({{ url_for ('static', filename = 'new1.jpg') }});
+            background-size: cover;
+            background-position: center;
+            color: #ffffff;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 0 5%;
+        }
+
+        .register-container {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            width: 400px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            animation: fadeIn 0.8s ease-in-out;
+            margin-right: 10%;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            margin-bottom: 30px;
+            font-size: 28px;
+            color: #ffffff;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        label {
+            position: absolute;
+            top: -20px;
+            left: 0;
+            font-size: 14px;
+            color: #dddddd;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: none;
+            border-bottom: 2px solid #555;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+        }
+
+        input:focus {
+            outline: none;
+            border-bottom: 2px solid #007BFF;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        button {
+            background: linear-gradient(45deg, #007BFF, #0056b3);
+            color: white;
+            padding: 12px 0;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
+        }
+
+        button:hover {
+            background: linear-gradient(45deg, #0056b3, #007BFF);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0, 123, 255, 0.5);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .login-link {
+            margin-top: 25px;
+            text-align: center;
+            font-size: 14px;
+            color: #aaaaaa;
+        }
+
+        .login-link a {
+            color: #007BFF;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .login-link a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        .app-info {
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            transform: translateY(-50%);
+            max-width: 40%;
+            text-align: left;
+        }
+
+        .app-info h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+        }
+
+        .app-info p {
+            font-size: 18px;
+            line-height: 1.6;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                justify-content: center;
+                padding: 20px;
+            }
+            
+            .app-info {
+                display: none;
+            }
+            
+            .register-container {
+                width: 100%;
+                max-width: 400px;
+                margin-right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-info">
+        <h1>Join Our Community</h1>
+        <p>Create an account to explore insights on electronic gadget addiction and stay updated with the latest advancements in machine learning detection techniques.</p>
+    </div>
+    
+    <div class="register-container">
+        <h2>Register</h2>
+        <form method="POST">
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required autocomplete="off">
+            </div>
+
+            <div class="input-group">
+                <label for="email">E-Mail</label>
+                <input type="email" id="email" name="email" required autocomplete="off">
+            </div>
+
+            <div class="input-group">
+                <label for="phonenumber">Phone Number</label>
+                <input type="tel" id="phonenumber" name="phonenumber" required autocomplete="off">
+            </div>
+
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <div class="btn-container">
+                <button type="submit">REGISTER</button>
+            </div>
+        </form>
+        <div class="login-link">
+            <p>Already have an account? <a href="/login">Login here</a></p>
+        </div>
+    </div>
+</body>
+</html>

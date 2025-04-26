@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Addiction Analysis</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url({{ url_for ('static', filename = 'ima4.jpg') }}) no-repeat center center fixed;
+            background-size: cover;
+            color: #ffffff;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px;
+            font-size: 2.5rem;
+            color: #ffcc00;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        nav {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: inline-block;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #ffcc00;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ffffff;
+        }
+
+        p {
+            text-align: center;
+            font-size: 1.2rem;
+            margin: 20px auto;
+            max-width: 800px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .scroll-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin: 30px auto;
+            max-width: 1200px;
+            padding: 20px;
+        }
+
+        .scroll-item {
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .scroll-item img {
+            width: 200px;
+            height: auto;
+            margin-right: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .scroll-item .content {
+            color: #ffffff;
+        }
+
+        .scroll-item h2 {
+            margin: 0 0 10px;
+            font-size: 1.8rem;
+            color: #ffcc00;
+        }
+
+        .scroll-item p {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #ffcc00;
+            font-size: 1rem;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        li {
+            margin: 10px 0;
+            list-style-type: disc;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Welcome to Gadget Addiction Analysis</h1>
+    <nav>
+        <ul>
+            <li><a href="/index">Home</a></li>
+            <li><a href="{{ url_for('predict') }}">Predict Addiction Score</a></li>
+            <li><a href="/visualize">Data Visualization</a></li>
+            <li><a href="/metrics">Metrics</a></li>
+            <li><a href="/logout">logout</a></li>
+        </ul>
+    </nav>
+
+    <p>Welcome Addiction Analysis using Machine learning here we use historical data to predict the classification of addiction based to questionarie answered.</p>
+
+    <div class="scroll-section">
+        <div class="scroll-item">
+            <img src="{{ url_for('static', filename='images/ima1.jpeg') }}" class="image" />
+            <div class="content">
+                <h2>What is Gadget Addiction?</h2>
+                <p>Gadget addiction refers to the excessive and compulsive use of electronic devices such as smartphones, tablets, computers, gaming consoles, or other digital gadgets, often to the point where it interferes with daily life and responsibilities. This behavioral addiction is characterized by a dependency on these devices for entertainment, communication, or information, which can lead to physical, emotional, and social consequences.</p>
+            </div>
+        </div>
+
+        <div class="scroll-item">
+            <img src="{{ url_for('static', filename='images/ima2.jpg') }}" class="image1" />
+            <div class="content">
+                <h2>Effects of Excessive Gadget Use</h2>
+                <p>Excessive gadget use has several adverse effects on physical, mental, and social well-being. It can lead to eye strain, sleep disturbances, and posture-related issues due to prolonged screen time. Mental health challenges such as anxiety, reduced attention span, and gadget addiction are common outcomes. Socially, it diminishes face-to-face interactions and fosters feelings of isolation. Additionally, it impacts productivity, cognitive abilities, and financial stability, while contributing to environmental issues like e-waste.</p>
+            </div>
+        </div>
+
+        <div class="scroll-item">
+            <img src="{{ url_for('static', filename='images/ima3.jpg') }}" class="image2" />
+            <div class="content">
+                <h2>Tips to Manage Gadget Addiction</h2>
+                <ul>
+                    <li>Set specific time limits for gadget use each day.</li>
+                    <li>Create gadget-free zones, such as the bedroom or dining area.</li>
+                    <li>Engage in offline activities like hobbies, exercise, or reading.</li>
+                    <li>Turn off unnecessary notifications to reduce distractions.</li>
+                    <li>Practice a digital detox by scheduling no-screen days.</li>
+                    <li>Use apps or tools to monitor and limit screen time.</li>
+                    <li>Focus on face-to-face interactions to strengthen relationships.</li>
+                    <li>Seek professional help if gadget use becomes unmanageable.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 Mobile Addiction Analysis. All rights reserved.
+    </footer>
+</body>
+</html>

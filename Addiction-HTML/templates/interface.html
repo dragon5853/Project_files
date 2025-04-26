@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gadget Usage Analyzer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            color: #333;
+            background-color: #f8f9fa;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section with Login */
+        .hero-section {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/api/placeholder/1920/1080') center/cover no-repeat;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .app-logo {
+            position: absolute;
+            top: 20px;
+            left: 50px;
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+            z-index: 10;
+        }
+
+        .app-logo span {
+            color: #4CAF50;
+        }
+
+        .hero-content {
+            display: flex;
+            width: 90%;
+            max-width: 1200px;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .app-info {
+            width: 50%;
+            color: #ffffff;
+            background-image: "url('E:\Dataset\gad.jpeg')";
+            padding-right: 50px;
+            animation: fadeInLeft 1s ease-out;
+        }
+
+        .app-info h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+        }
+
+        .app-info p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            text-align: center;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator i {
+            font-size: 30px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* Login Container */
+        .login-container {
+            background: rgba(0, 0, 0, 0.75);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            width: 400px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            animation: fadeInRight 1s ease-out;
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-20px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+        }
+
+        h2 {
+            margin-bottom: 30px;
+            font-size: 28px;
+            color: #ffffff;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        label {
+            position: absolute;
+            top: -20px;
+            left: 0;
+            font-size: 14px;
+            color: #dddddd;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-bottom: 2px solid #555;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-bottom: 2px solid #4CAF50;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        button {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            padding: 15px 0;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        button:hover {
+            background: linear-gradient(45deg, #45a049, #4CAF50);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(76, 175, 80, 0.5);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .register-link {
+            margin-top: 25px;
+            text-align: center;
+            font-size: 14px;
+            color: #cccccc;
+        }
+
+        .register-link a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .register-link a:hover {
+            color: #45a049;
+            text-decoration: underline;
+        }
+
+        /* Features Section */
+        .section {
+            padding: 100px 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease;
+        }
+
+        .section.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            color: #333;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .section-title p {
+            color: #666;
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Features */
+        .features-section {
+            background-color: white;
+        }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .feature-card {
+            flex: 1 1 300px;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            font-size: 30px;
+        }
+
+        .feature-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .feature-card p {
+            font-size: 15px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            background-color: #f8f9fa;
+        }
+
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            counter-reset: step-counter;
+        }
+
+        .step {
+            flex: 1 1 300px;
+            position: relative;
+            padding: 30px;
+            margin-bottom: 30px;
+            counter-increment: step-counter;
+        }
+
+        .step::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .step h3 {
+            margin-left: 70px;
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .step p {
+            margin-left: 70px;
+            font-size: 15px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Statistics Section */
+        .statistics {
+            background-color: #333;
+            color: white;
+            text-align: center;
+        }
+
+        .statistics .section-title h2 {
+            color: white;
+        }
+
+        .statistics .section-title p {
+            color: #ccc;
+        }
+
+        .stats-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 30px;
+        }
+
+        .stat-item {
+            flex: 1 1 200px;
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #4CAF50;
+        }
+
+        .stat-text {
+            font-size: 18px;
+            color: #ddd;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background-color: white;
+        }
+
+        .testimonials-container {
+            display: flex;
+            overflow-x: hidden;
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .testimonial-slide {
+            min-width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+            transition: transform 0.5s ease;
+        }
+
+        .testimonial-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            background-color: #f0f0f0;
+            background-image: url('/api/placeholder/100/100');
+            background-size: cover;
+            border: 5px solid #4CAF50;
+        }
+
+        .testimonial-quote {
+            font-size: 18px;
+            line-height: 1.7;
+            color: #555;
+            max-width: 800px;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: #333;
+            font-size: 18px;
+        }
+
+        .testimonial-role {
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .testimonial-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 10px;
+        }
+
+        .testimonial-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #ddd;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-dot.active {
+            background-color: #4CAF50;
+            transform: scale(1.2);
+        }
+
+        /* Call to Action */
+        .cta-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1920/1080') center/cover no-repeat;
+            text-align: center;
+            padding: 100px 0;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-section h2 {
+            font-size: 36px;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            color: #ddd;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: #4CAF50;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 18px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            background: #45a049;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #222;
+            color: #aaa;
+            padding: 60px 0 20px;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column {
+            flex: 1 1 250px;
+        }
+
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .footer-column p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #4CAF50;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background-color: #4CAF50;
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-content {
+                flex-direction: column;
+                gap: 50px;
+            }
+
+            .app-info {
+                width: 100%;
+                padding-right: 0;
+                text-align: center;
+            }
+
+            .login-container {
+                width: 100%;
+                max-width: 500px;
+            }
+
+            .step::before {
+                position: static;
+                margin: 0 auto 20px;
+            }
+
+            .step h3, .step p {
+                margin-left: 0;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .app-logo {
+                left: 20px;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+
+            .section-title h2 {
+                font-size: 30px;
+            }
+
+            .feature-card, .step {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-section">
+        <div class="app-logo">Gadget<span>Sense</span></div>
+        <div class="hero-content">
+            <div class="app-info">
+                <h1>Understanding Your Digital Habits</h1>
+                <p>GadgetSense helps you analyze your electronic device usage patterns and provides personalized insights to build a healthier relationship with technology.</p>
+                <a href="#features" class="cta-btn">Learn More</a>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <span>Scroll to learn more</span>
+            <i>↓</i>
+        </div>
+    </div>
+
+    <section id="features" class="section features-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Key Features</h2>
+                <p>Discover how GadgetSense can help you understand and manage your relationship with electronic devices.</p>
+            </div>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Usage Analytics</h3>
+                    <p>Get detailed insights into your device usage patterns across different times of day and applications.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Addiction Risk Assessment</h3>
+                    <p>Our AI algorithm analyzes your usage patterns to determine potential addiction risk factors.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>How It Works</h2>
+                <p>Our scientific approach to understanding your digital habits and providing actionable insights.</p>
+            </div>
+            
+            <div class="steps">
+                <div class="step">
+                    <h3>Connect Your Devices</h3>
+                    <p>Link your smartphones, tablets, and computers to start tracking usage across all your devices.</p>
+                </div>
+                
+                <div class="step">
+                    <h3>Track Your Habits</h3>
+                    <p>Our system monitors screen time, app usage, and interaction patterns without compromising privacy.</p>
+                </div>
+                
+                <div class="step">
+                    <h3>Get Personalized Insights</h3>
+                    <p>Receive detailed reports and actionable recommendations based on your unique usage patterns.</p>
+                </div>
+                
+                <div class="step">
+                    <h3>Improve Digital Wellness</h3>
+                    <p>Follow our guided program to build healthier technology habits and reduce addiction risk.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section statistics">
+        <div class="container">
+            <div class="section-title">
+                <h2>The Digital Addiction Reality</h2>
+                <p>Statistics that highlight the importance of monitoring and managing your electronic device usage.</p>
+            </div>
+            
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-number">4.2</div>
+                    <div class="stat-text">Hours average daily screen time for adults</div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-number">73%</div>
+                    <div class="stat-text">Feel anxious when separated from their phone</div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-number">86×</div>
+                    <div class="stat-text">Average checks of phone per day</div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-number">42%</div>
+                    <div class="stat-text">Report reduced productivity due to device distraction</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>User Success Stories</h2>
+                <p>Hear from people who have improved their digital wellbeing with GadgetSense.</p>
+            </div>
+            
+            <div class="testimonials-container">
+                <div class="testimonial-slide active">
+                    <div class="testimonial-avatar"></div>
+                    <div class="testimonial-quote">"GadgetSense helped me realize I was spending over 6 hours daily on my phone. After following their recommendations, I've cut my usage in half and feel much more present in my daily life."</div>
+                    <div class="testimonial-author">Sarah Johnson</div>
+                    <div class="testimonial-role">Marketing Professional</div>
+                </div>
+                
+                <div class="testimonial-slide">
+                    <div class="testimonial-avatar"></div>
+                    <div class="testimonial-quote">"As a parent, I was concerned about my teenager's device usage. GadgetSense provided useful insights and helped us establish healthy boundaries without constant arguments."</div>
+                    <div class="testimonial-author">Michael Thompson</div>
+                    <div class="testimonial-role">Parent of two</div>
+                </div>
+                
+                <div class="testimonial-slide">
+                    <div class="testimonial-avatar"></div>
+                    <div class="testimonial-quote">"The personalized insights were eye-opening. I had no idea certain apps were triggering addictive patterns for me. The guided digital detox program was exactly what I needed."</div>
+                    <div class="testimonial-author">Jennifer Lee</div>
+                    <div class="testimonial-role">Software Developer</div>
+                </div>
+            </div>
+            
+            <div class="testimonial-controls">
+                <div class="testimonial-dot active" data-slide="0"></div>
+                <div class="testimonial-dot" data-slide="1"></div>
+                <div class="testimonial-dot" data-slide="2"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Take Control of Your Digital Life Today</h2>
+                <p>Join thousands of users who have improved their relationship with technology and reclaimed their time and attention.</p>
+                <a href="/register" class="cta-btn">Create Your Account</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-column">
+                    <h3>About GadgetSense</h3>
+                    <p>We're on a mission to help people develop healthier relationships with technology through awareness and personalized insights.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon">f</a>
+                        <a href="#" class="social-icon">t</a>
+                        <a href="#" class="social-icon">in</a>
+                        <a href="#" class="social-icon">ig</a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#" class="how-it-works">How It Works</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Digital Wellbeing Guide</a></li>
+                        <li><a href="#">Research Papers</a></li>
+                        <li><a href="#">Addiction Assessment</a></li>
+                        <li><a href="#">Productivity Tips</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><a href="mailto:support@gadgetsense.com">support@gadgetsense.com</a></li>
+                        <li><a href="tel:+1234567890">+1 (234) 567-890</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 GadgetSense. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll animation for sections
+        const sections = document.querySelectorAll('.section');
+        
+        function checkSections() {
+            const triggerBottom = window.innerHeight * 0.8;
+            
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                
+                if (sectionTop < triggerBottom) {
+                    section.classList.add('active');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', checkSections);
+        checkSections(); // Check on initial load
+        
+        // Testimonial slider
+        const testimonials = document.querySelectorAll('.testimonial-slide');
+        const dots = document.querySelectorAll('.testimonial-dot');
+        let currentSlide = 0;
+        
+        function showSlide(index) {
+            testimonials.forEach((slide, i) => {
+                slide.style.transform = `translateX(${100 * (i - index)}%)`;
+                dots[i].classList.toggle('active', i === index);
+            });
+            currentSlide = index;
+        }
+        
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showSlide(index);
+            });
+        });
+        
+        // Auto slide every 5 seconds
+        setInterval(() => {
+            let nextSlide = currentSlide + 1;
+            if (nextSlide >= testimonials.length) {
+                nextSlide = 0;
+            }
+            showSlide(nextSlide);
+        }, 5000);
+        
+        // Initialize testimonials
+        showSlide(0);
+    </script>
+</body>
+</html>

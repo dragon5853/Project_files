@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predict Addiction Score</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url({{ url_for ('static', filename = 'ima4.jpg') }}) no-repeat center center fixed;
+            background-size: cover;
+            color: #ffffff;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        form {
+            background: rgba(0, 0, 0, 0.718);
+            padding: 40px;
+            max-width: 1200px;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        select {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            grid-column: span 3; /* Ensures the button spans across both columns */
+            background-color: #007BFF;
+            color: #ffffff;
+            font-size: 16px;
+            padding: 10px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 768px) {
+            form {
+                grid-template-columns: 1fr;
+            }
+
+            button {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Enter Details for Analysis</h1>
+    <form action="/predict" method="POST">
+        <div class="form-group">
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="battery_last">Does your phone's battery last a day?</label>
+            <select id="battery_last" name="battery_last" required>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="charger_run">Do you run for charger when phone battery is out?</label>
+            <select id="charger_run" name="charger_run" required>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="phone_worry">Do you worry about losing your cell phone?</label>
+            <select id="phone_worry" name="phone_worry" required>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="bathroom_phone">Do you take your phone to the bathroom?</label>
+            <select id="bathroom_phone" name="bathroom_phone" required>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="social_phone">Do you use your phone in social gatherings?</label>
+            <select id="social_phone" name="social_phone" required>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="phone_no_notification">Do you often check your phone without any notification?</label>
+            <select id="phone_no_notification" name="phone_no_notification" required>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="sleep_phone">Do you check your phone just before going to sleep/just after waking up?</label>
+            <select id="sleep_phone" name="sleep_phone" required>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="class_time_check">Do you check emails, missed calls, texts during class time?</label>
+            <select id="class_time_check" name="class_time_check" required>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="awkward_rely">Do you rely on your phone when things get awkward?</label>
+            <select id="awkward_rely" name="awkward_rely" required>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="tv_eating_phone">Are you on your phone while watching TV or eating food?</label>
+            <select id="tv_eating_phone" name="tv_eating_phone" required>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="panic_phone">Do you have a panic attack if you leave your phone elsewhere?</label>
+            <select id="panic_phone" name="panic_phone" required>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="phone_on_date">You don't mind responding to messages or checking your phone while on a date?</label>
+            <select id="phone_on_date" name="phone_on_date" required>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+	<div class="form-group">
+	<label for="game_usage">For how long do you use your phone for playing games?</label>
+        <select id="game_usage" name="game_usage" required>
+            <option value="Yes">>3 Hours</option>
+            <option value="No"><3 Hours</option>
+        </select><br>
+	</div>
+        <div class="form-group">
+            <label for="can_live_without_phone">Can you live a day without using or having your phone?</label>
+            <select id="can_live_without_phone" name="can_live_without_phone" required>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+        <button type="submit">Analyze My Usage</button>
+    </form>
+</body>
+</html>

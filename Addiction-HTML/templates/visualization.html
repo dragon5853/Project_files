@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        /* Apply background image and fallback gradient */
+        body {
+            background: linear-gradient(135deg, #2b5876, #4e4376);
+            background-image: url({{ url_for ('static', filename = 'Dashboard.jpg') }}) no-repeat center center fixed;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #fff;
+            background: #0056b3;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1rem;
+            margin: 5px;
+            display: inline-block;
+        }
+
+        a:hover {
+            background: #004085;
+        }
+
+        /* Styling for the cards */
+        .card {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            backdrop-filter: blur(10px);
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <center><h1 class="text-center mb-4">📊 Interactive Dashboard</h1></center>
+
+    <!-- Charts Section -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Gender Distribution</h5>
+                    {{ graphs["gender_fig"] | safe }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Phone Addiction Rate</h5>
+                    {{ graphs["addiction_fig"] | safe }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Phone Usage Before Sleep</h5>
+                    {{ graphs["sleep_usage_fig"] | safe }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Game Time Distribution</h5>
+                    {{ graphs["game_time_fig"] | safe }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Phone Dependency Metrics</h5>
+            {{ graphs["dependency_fig"] | safe }}
+        </div>
+    </div>
+
+    <div class="button-container">
+        <a href="/index">Go Back to Home</a>
+    </div>
+
+</body>
+</html>
